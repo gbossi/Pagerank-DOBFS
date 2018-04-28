@@ -83,7 +83,7 @@ int main(int argc, char* argv[]){
 	}
 
 	if(testPagerank){
-		for(float dambing=0.95;damping>0;damping-=0.05){
+		for(float damping=0.95;damping>0;damping-=0.05){
 			
 			begin_time_1 = clock();
 			pagerank(g, damping, iteration);
