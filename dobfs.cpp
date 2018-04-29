@@ -97,9 +97,12 @@ void dobfs(Graph &g,size_t index, int alpha, int beta){
 
 		sizeGraph = sizeGraph - next.size();  //number of vertices with distance = -1
 		chooseDirection(directionDown, sizeGraph, frontier.size(), next.size(), alpha, beta);
+		frontier.clear();
 		frontier=next;
 		next.clear();
 		distance++;
 	}
+	invGraph.clear();
 }
+
 
