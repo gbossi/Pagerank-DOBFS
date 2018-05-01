@@ -10,8 +10,6 @@
 #define TEST_LOG "test_log.txt"
 #define BFS_START_ID 0
 #define MAX_ALPHA 24
-#define MAX_BETA 48
-
 
 
 int main(int argc, char* argv[]){
@@ -64,21 +62,19 @@ int main(int argc, char* argv[]){
 
 	if(testBFS){
 		for(int alpha=2;alpha<MAX_ALPHA;alpha+=2){
-			for(int beta=2;beta<MAX_BETA;beta+=2){
-
-				begin_time_1 = clock();
-				dobfs(g, index,alpha,beta);
-				testlog << "Sequential DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
-				testlog << "has requested";
-				testlog << "\t" <<float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC <<" s\n";
-				resetValue(g);
-				begin_time_1 = clock();
-				parallel_dobfs(g,index,alpha,beta);
-				testlog << "Prarllel DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
-				testlog << "has requested ";
-				testlog << "\t" << float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC<<" s\n";
-				resetValue(g);
-			}
+			int beta=alpha*2;
+			begin_time_1 = clock();
+			dobfs(g, index,alpha,beta);
+			testlog << "Sequential DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
+			testlog << "has requested";
+			testlog << "\t" <<float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC <<" s\n";
+			resetValue(g);
+			begin_time_1 = clock();
+			parallel_dobfs(g,index,alpha,beta);
+			testlog << "Prarllel DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
+			testlog << "has requested ";
+			testlog << "\t" << float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC<<" s\n";
+			resetValue(g);
 		}
 	}
 
