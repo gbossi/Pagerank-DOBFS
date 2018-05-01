@@ -15,7 +15,7 @@ void pagerank(Graph &g, double alpha, int maxiteration){
 	int stdvalue= 1;
 	
 	#pragma parallel for 
-	for(int i = 0; i < vertexNum; i++){
+	for(size_t i = 0; i < vertexNum; i++){
 		outdegree[i]=boost::out_degree(i,g);
 		g[i].value=stdvalue;
 	}
