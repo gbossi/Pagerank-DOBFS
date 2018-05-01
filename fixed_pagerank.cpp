@@ -5,7 +5,7 @@
 void fixed_pagerank(Graph &g, double alpha, int maxiteration){
 
 	size_t vertexNum = num_vertices(g);
-	const int tolerance = 1e-12 * FIXED;
+	const int tolerance = 1;
  	int bias = ((1.0 - alpha) / vertexNum)* FIXED;
 	std::vector<int> outdegree(vertexNum);
 	std::vector<double> memory(vertexNum);
