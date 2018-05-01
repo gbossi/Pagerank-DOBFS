@@ -17,7 +17,7 @@ void fixed_pagerank(Graph &g, double alpha, int maxiteration){
 	int stdfixed_value = FIXED;
 	
 	#pragma parallel for 
-	for(int i = 0; i < vertexNum; i++){
+	for(size_t i = 0; i < vertexNum; i++){
 		outdegree[i]=boost::out_degree(i,g)*FIXED;
 		g[i].fixed_value=stdfixed_value;
 	}
