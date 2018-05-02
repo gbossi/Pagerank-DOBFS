@@ -67,14 +67,8 @@ int main(int argc, char* argv[]){
 		for(int alpha=2;alpha<MAX_ALPHA;alpha+=2){
 			int beta=alpha*2;
 			begin_time_1 = clock();
-			dobfs(g, index,alpha,beta);
-			testlog << "Sequential DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
-			testlog << "has requested";
-			testlog << "\t" <<float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC <<" s\n";
-			resetValue(g);
-			begin_time_1 = clock();
 			parallel_dobfs(g,index,alpha,beta);
-			testlog << "Prarllel DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
+			testlog << "Parallel DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
 			testlog << "has requested ";
 			testlog << "\t" << float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC<<" s\n";
 			resetValue(g);
