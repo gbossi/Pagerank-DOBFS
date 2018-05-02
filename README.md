@@ -30,7 +30,7 @@ Additional Argument:
 
 ### Test
 ```
-./test
+./test -h
 ```
 
 ```
