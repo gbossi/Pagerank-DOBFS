@@ -3,7 +3,7 @@ Direction-Optimizing Breadth-First Search (DOBFS) and Pagerank using Boost BGL a
 
 
 ## Background
-### Direction-Oprimizing Pagerank
+### Direction-Oprimizing Breadth-First Search
 The algorithm proceeds step by step exploring the graph, in the case of top down step it populates the frontier adding all the nodes at distance + 1 from the current frontier.
 In the case of  bottom up it search in the part of the graph that it’s still unexplored each node that is linked to a node of the frontier
 
