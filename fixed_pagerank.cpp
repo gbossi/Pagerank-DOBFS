@@ -8,7 +8,7 @@ void fixed_pagerank(Graph &g, double alpha, int maxiteration){
 	const int tolerance = 1;
  	int bias = ((1.0 - alpha) / vertexNum)* FIXED;
 	std::vector<int> outdegree(vertexNum);
-	std::vector<double> memory(vertexNum);
+	std::vector<int> memory(vertexNum);
 	int fixed_alpha = alpha * FIXED;
 
 
@@ -36,7 +36,7 @@ void fixed_pagerank(Graph &g, double alpha, int maxiteration){
 		#pragma parallel for 
 		for (size_t i = 0; i < vertexNum; ++i){
 			if(outdegree[i]>0){
-				update = (fixed_alpha*(memory[i]/outdegree[i]));
+				update = (fixed_alpha*memory[i])/outdegree[i];
 				//itererator for the outgoing edges the vertex 
 				std::pair<adjacency_iterator, adjacency_iterator> neighbors = boost::adjacent_vertices(i, g);
 				//for each outgoing edges
