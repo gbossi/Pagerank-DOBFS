@@ -46,6 +46,7 @@ void help_main(){
 void help_test(){
 	std::string help= "Additional Argument:\n\
 	\t *input file (default: out.dot). E.g., -i INfile.dot\n\
+	\t *output file (default: test_log.txt). E.g., -o OUTfile.dot\n\
 	\t *initial ID vertex for BFS (default 0). E.g., -id 9\n\
 	\t *Test BFS (default true). E.g., -noTestBFS\n\
 	\t *Test Pagerank (default true). E.g., -noTestPagerank\n\

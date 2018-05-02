@@ -14,6 +14,7 @@
 
 int main(int argc, char* argv[]){
 	std::string filename_IN = RMAT_FILE;
+	std::string filename_OUT=TEST_LOG;
 
 	size_t initialVertexID= BFS_START_ID; 
 	bool testBFS=true;
@@ -35,6 +36,8 @@ int main(int argc, char* argv[]){
 				testBFS = false;
 			else if( !strcmp(argv[iii], "-noTestPagerank"))
 				testPagerank = false;
+			else if( !strcmp(argv[iii], "-o") && iii != argc-1)
+				filename_OUT =  std::string(argv[iii+1]) ;
 			else if( !strcmp(argv[iii], "-iter") && iii != argc-1)
 				iteration = std::stoull( std::string(argv[iii+1]) );
 			else if( !strcmp(argv[iii], "-h")){
@@ -58,7 +61,7 @@ int main(int argc, char* argv[]){
 	//normally it will give you a id
 	clock_t begin_time_1;
 	std::ofstream testlog;
-	testlog.open(TEST_LOG);
+	testlog.open(filename_OUT);
 
 	if(testBFS){
 		for(int alpha=2;alpha<MAX_ALPHA;alpha+=2){

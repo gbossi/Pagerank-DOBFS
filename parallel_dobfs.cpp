@@ -30,7 +30,7 @@ void parallel_bottom_up_step(Graph &g, Graph invGraph, std::vector<size_t> &fron
 	//For each vertex of the graph
 	size_t total_vertices = boost::num_vertices(g);
 		//iterate over the entire graph
-	#pragma omp parallel for schedule(static)
+	#pragma omp parallel for
 	for (size_t i =0; i < total_vertices ; i++) {
 		if(g[i].distance < 0){
 	
@@ -55,7 +55,7 @@ void parallel_top_down_step(Graph &g, std::vector<size_t> &frontier, std::vector
 	std::cout << "\n\nStarting Top Down \n";
 	size_t frontier_size = frontier.size();
 	//For each element of the frontier
-	#pragma omp parallel for schedule(static)
+	#pragma omp parallel for
 	for (size_t i=0; i < frontier_size; i++) {
 
    		//Iterator for the outgoing edges the vertex 
