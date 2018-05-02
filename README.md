@@ -59,13 +59,13 @@ make test
 
 ## Additional Argument
 ### Algorithms
-To output the available additional argument
+To output the available additional arguments
 ```
 ./algorithms -h
 ```
 
 ```
-Additional Argument:
+Additional Arguments:
 		 *input file (default: out.dot). E.g., -i INfile.dot
 		 *output file (default: result.dot). E.g., -o OUTfile.dot
 		 *initial ID vertex for BFS (default 0). E.g., -id 9
@@ -80,13 +80,13 @@ Additional Argument:
 ```
 
 ### Test
-To output the available additional argument
+To output the available additional arguments
 ```
 ./test -h
 ```
 
 ```
-Additional Argument:
+Additional Arguments:
 		 *input file (default: out.dot). E.g., -i INfile.dot
 		 *output file (default: test_log.txt). E.g., -o testPagerank.txt
 		 *initial ID vertex for BFS (default 0). E.g., -id 9
