@@ -6,14 +6,14 @@
 void chooseDirection(bool &currentDirection, long int sizeGraph, long int sizeFrontier, long int sizeNext, int alpha,int beta){
 
 	int edgesToCheck;
-	double branching_factor=(sizeNext-sizeFrontier)/sizeFrontier;
+	double branching_factor=(double) (sizeNext-sizeFrontier)/sizeFrontier;
 
 	//this is the case we the graph is growing
-	if(branching_factor>0){
+	if(currentDirection && branching_factor>0){
 		edgesToCheck = sizeNext * branching_factor;
 		currentDirection=(edgesToCheck<(sizeGraph*branching_factor/alpha));
 	//Here the graph is shrinking
-	}else{
+	}else if(!currentDirection && branching_factor<0){
 		edgesToCheck=sizeFrontier;
 		currentDirection=(sizeFrontier<(sizeGraph/beta));
 	}
