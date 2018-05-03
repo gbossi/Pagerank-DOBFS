@@ -4,7 +4,7 @@
 #include "pagerank.hpp"
 #include "fixed_pagerank.hpp"
 #include "utils.hpp"
-#include <time.h>
+#include <chrono>
 
 #define RMAT_FILE "out.dot"
 #define TEST_LOG "test_log.txt"
@@ -59,18 +59,22 @@ int main(int argc, char* argv[]){
 	//Here we assume that we can take as argument the type of search
 	//requested between DOBFS and Pagerank
 	//normally it will give you a id
-	clock_t begin_time_1;
+	using namespace std::chrono;
+	high_resolution_clock::time_point t1;
+	high_resolution_clock::time_point t2;
 	std::ofstream testlog;
 	testlog.open(filename_OUT);
 
 	if(testBFS){
 		for(int alpha=2;alpha<MAX_ALPHA;alpha+=2){
 			int beta=alpha*2;
-			begin_time_1 = clock();
+			t1 = high_resolution_clock::now();
 			parallel_dobfs(g,index,alpha,beta);
+			t2 = high_resolution_clock::now();
+			auto durationBFS = duration_cast<microseconds>( t2 - t1 ).count();
 			testlog << "Parallel DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
 			testlog << "has requested ";
-			testlog << "\t" << float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC<<" s\n";
+			testlog << "\t" << durationBFS <<" microsec\n";
 			resetValue(g);
 		}
 	}
@@ -78,16 +82,20 @@ int main(int argc, char* argv[]){
 	if(testPagerank){
 		for(float damping=0.95;damping>0;damping-=0.05){
 			
-			begin_time_1 = clock();
+			t1 = high_resolution_clock::now();
 			pagerank(g, damping, iteration);
+			t2 = high_resolution_clock::now();
+			auto durationFLP = duration_cast<microseconds>( t2 - t1 ).count();
 			testlog << "Pagerank algortihm with damping factor="<<damping<<" using floating point arithmetic requested ";
-			testlog << "\t" << float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC<<" s\n";
+			testlog << "\t" << durationFLP <<" microsec\n";
 			
 
-			begin_time_1 = clock();
+			t1 = high_resolution_clock::now();
 			fixed_pagerank(g, damping, iteration);
+			t2 = high_resolution_clock::now();
+			auto durationFXP = duration_cast<microseconds>( t2 - t1 ).count();
 			testlog << "Pagerank algorithm with damping factor="<<damping<<" using fixed point arithmetic requested ";
-			testlog << "\t" << float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC<<" s\n";
+			testlog << "\t" << durationFXP <<" microsec\n";
 			
 
 			resetValue(g);

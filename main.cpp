@@ -80,43 +80,30 @@ int main(int argc, char* argv[]){
 	clock_t begin_time_1;
 
 	if(sequentialBFS){
-		std::cout << "Press enter to start sequential BFS\n";
-		std::cin.ignore();
-
 		begin_time_1 = clock();
 		dobfs(g, index,alpha,beta);
-		std::cout << "\t" <<float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC <<"\n";
 	}
 	
 
 	if(parallelBFS){
 		if(sequentialBFS)
 			resetValue(g);
-		std::cout << "Press enter to start parallel BFS\n";
-		std::cin.ignore();
 
 		begin_time_1 = clock();
 		parallel_dobfs(g,index,alpha,beta);
-		std::cout << "\t" << float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC<<"\n";
 	}
 
 
 	if(pagerankAlgorithm){
-		std::cout << "Press enter to start parallel Pagerank\n";
-		std::cin.ignore();
 
 		begin_time_1 = clock();
 		pagerank(g, damping, iteration);
-		std::cout << "\t" << float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC<<"\n";
 	}
 
 	if(fixed_pagerankAlgorithm){
-		std::cout << "Press enter to start parallel Pagerank with fixed point\n";
-		std::cin.ignore();
 
 		begin_time_1 = clock();
 		fixed_pagerank(g, damping, iteration);
-		std::cout << "\t" << float( clock () - begin_time_1 ) /  CLOCKS_PER_SEC<<"\n";
 	}
 	
 	std::cout << "Writing the graph in " << filename_OUT << "\n";
