@@ -20,8 +20,9 @@ void buildGraph(Graph &g, std::string filename){
 void writeGraph(Graph g, std::string filename){
 	boost::dynamic_properties dp;
 	dp.property("node_id", get(&Vertex::id, g));
-	dp.property("distance_from_source", get(&Vertex::distance, g));
-	dp.property("pagerank value", get(&Vertex::value, g));
+	dp.property("distance", get(&Vertex::distance, g));
+	dp.property("fixed pagerank", get(&Vertex::value, g));
+	dp.property("floating pagerank", get(&Vertex::fixed_value, g));
 	std::ofstream outputFile;
 	outputFile.open(filename);
 	write_graphviz_dp(outputFile, g, dp, "node_id");
