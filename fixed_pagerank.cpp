@@ -16,7 +16,7 @@ void fixed_pagerank(Graph &g, double alpha, int maxiteration){
 	//set the number of outdegree and the std number for each vertex
 	int stdfixed_value = FIXED;
 	
-	#pragma parallel for 
+	#pragma omp parallel for 
 	for(size_t i = 0; i < vertexNum; i++){
 		outdegree[i]=boost::out_degree(i,g)*FIXED;
 		g[i].fixed_value=stdfixed_value;
@@ -27,13 +27,13 @@ void fixed_pagerank(Graph &g, double alpha, int maxiteration){
 	int update;
 	while (iter++ < maxiteration){
 
-		#pragma parallel for 
+		#pragma omp parallel for 
 		for (size_t i = 0; i < vertexNum; ++i){
 			memory[i]=g[i].fixed_value;
 			g[i].fixed_value=0;
 		}
 
-		#pragma parallel for 
+		#pragma omp parallel for 
 		for (size_t i = 0; i < vertexNum; ++i){
 			if(outdegree[i]>0){
 				update = (fixed_alpha*memory[i])/outdegree[i];

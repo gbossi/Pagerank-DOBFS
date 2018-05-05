@@ -4,7 +4,7 @@ void pagerank(Graph &g, double alpha, int maxiteration){
 
 	
 	size_t vertexNum = num_vertices(g);
-	const double tolerance = 1e-12;
+	const double tolerance = 5e-8;
  	double bias = (1.0 - alpha) / vertexNum;
 	std::vector<int> outdegree(vertexNum);
 	std::vector<double> memory(vertexNum);
@@ -14,7 +14,7 @@ void pagerank(Graph &g, double alpha, int maxiteration){
 	//set the number of outdegree and the std number for each vertex
 	int stdvalue= 1;
 	
-	#pragma parallel for 
+	#pragma omp parallel for 
 	for(size_t i = 0; i < vertexNum; i++){
 		outdegree[i]=boost::out_degree(i,g);
 		g[i].value=stdvalue;
@@ -25,13 +25,13 @@ void pagerank(Graph &g, double alpha, int maxiteration){
 	double update;
 	while (iter++ < maxiteration){
 
-		#pragma parallel for 
+		#pragma omp parallel for 
 		for (size_t i = 0; i < vertexNum; ++i){
 			memory[i]=g[i].value;
 			g[i].value=0;
 		}
 
-		#pragma parallel for 
+		#pragma omp parallel for 
 		for (size_t i = 0; i < vertexNum; ++i){
 			if(outdegree[i]>0){
 				update = alpha * (memory[i]/outdegree[i]);
