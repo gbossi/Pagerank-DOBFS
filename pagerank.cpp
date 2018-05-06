@@ -31,7 +31,7 @@ void pagerank(Graph &g, double alpha, int maxiteration){
 			g[i].value=0;
 		}
 
-		#pragma omp parallel for 
+		#pragma omp parallel for private(update)
 		for (size_t i = 0; i < vertexNum; ++i){
 			if(outdegree[i]>0){
 				update = alpha * (memory[i]/outdegree[i]);

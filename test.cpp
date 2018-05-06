@@ -9,7 +9,6 @@
 #define RMAT_FILE "out.dot"
 #define TEST_LOG "test_log.txt"
 #define BFS_START_ID 0
-#define MAX_ALPHA 24
 
 
 int main(int argc, char* argv[]){
@@ -19,7 +18,9 @@ int main(int argc, char* argv[]){
 	size_t initialVertexID= BFS_START_ID; 
 	bool testBFS=true;
 	bool testPagerank=true;
-
+	int alpha = 12;
+	int beta = 24;
+	double damping=0.85;
 	int iteration = 100;
 
 	Graph g;
@@ -30,14 +31,20 @@ int main(int argc, char* argv[]){
 		for( int iii = 1; iii < argc; ++iii ) {
 			if( !strcmp(argv[iii], "-i") && iii != argc-1)
 				filename_IN = std::string(argv[iii+1]);
+			else if( !strcmp(argv[iii], "-o") && iii != argc-1)
+				filename_OUT =  std::string(argv[iii+1]) ;
 			else if( !strcmp(argv[iii], "-id") && iii != argc-1)
 				initialVertexID = std::stod( std::string(argv[iii+1]));
 			else if( !strcmp(argv[iii], "-noTestBFS"))
 				testBFS = false;
+			else if( !strcmp(argv[iii], "-alpha") && iii != argc-1 )
+				alpha = std::stod( std::string(argv[iii+1]) );
+			else if( !strcmp(argv[iii], "-beta") && iii != argc-1)
+				beta = std::stod( std::string(argv[iii+1]) );
 			else if( !strcmp(argv[iii], "-noTestPagerank"))
 				testPagerank = false;
-			else if( !strcmp(argv[iii], "-o") && iii != argc-1)
-				filename_OUT =  std::string(argv[iii+1]) ;
+			else if( !strcmp(argv[iii], "-df") && iii != argc-1)
+				damping = std::stod( std::string(argv[iii+1]) );
 			else if( !strcmp(argv[iii], "-iter") && iii != argc-1)
 				iteration = std::stoull( std::string(argv[iii+1]) );
 			else if( !strcmp(argv[iii], "-h")){
@@ -66,41 +73,32 @@ int main(int argc, char* argv[]){
 	testlog.open(filename_OUT);
 
 	if(testBFS){
-		for(int alpha=2;alpha<MAX_ALPHA;alpha+=2){
-			int beta=alpha*2;
-			t1 = high_resolution_clock::now();
-			parallel_dobfs(g,index,alpha,beta);
-			t2 = high_resolution_clock::now();
-			auto durationBFS = duration_cast<microseconds>( t2 - t1 ).count();
-			testlog << "Parallel DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
-			testlog << "has requested ";
-			testlog << "\t" << durationBFS <<" microsec\n";
-			resetValue(g);
-		}
+		t1 = high_resolution_clock::now();
+		parallel_dobfs(g,index,alpha,beta);
+		t2 = high_resolution_clock::now();
+		auto durationBFS = duration_cast<microseconds>( t2 - t1 ).count();
+		testlog << "Parallel DOBFS with parameter alpha=" << alpha << " and beta=" << beta << " ";
+		testlog << "has requested ";
+		testlog << "\t" << durationBFS <<" microsec\n";
 	}
 
 	if(testPagerank){
-		for(float damping=0.95;damping>0;damping-=0.05){
-			
-			t1 = high_resolution_clock::now();
-			pagerank(g, damping, iteration);
-			t2 = high_resolution_clock::now();
-			auto durationFLP = duration_cast<microseconds>( t2 - t1 ).count();
-			testlog << "Pagerank algortihm with damping factor="<<damping<<" using floating point arithmetic requested ";
-			testlog << "\t" << durationFLP <<" microsec\n";
-			
-
-			t1 = high_resolution_clock::now();
-			fixed_pagerank(g, damping, iteration);
-			t2 = high_resolution_clock::now();
-			auto durationFXP = duration_cast<microseconds>( t2 - t1 ).count();
-			testlog << "Pagerank algorithm with damping factor="<<damping<<" using fixed point arithmetic requested ";
-			testlog << "\t" << durationFXP <<" microsec\n";
-			
-
-			resetValue(g);
-		}
+		t1 = high_resolution_clock::now();
+		pagerank(g, damping, iteration);
+		t2 = high_resolution_clock::now();
+		auto durationFLP = duration_cast<microseconds>( t2 - t1 ).count();
+		testlog << "Floating Pagerank algortihm with damping factor="<<damping<<" using floating point arithmetic requested ";
+		testlog << "\t" << durationFLP <<" microsec\n";
+		
+		t1 = high_resolution_clock::now();
+		fixed_pagerank(g, damping, iteration);
+		t2 = high_resolution_clock::now();
+		auto durationFXP = duration_cast<microseconds>( t2 - t1 ).count();
+		testlog << "Fixed Pagerank algorithm with damping factor="<<damping<<" using fixed point arithmetic requested ";
+		testlog << "\t" << durationFXP <<" microsec\n";
+		
 	}
+
 	testlog.close();
 
 	return 0;

@@ -46,10 +46,13 @@ void help_main(){
 void help_test(){
 	std::string help= "Additional Argument:\n\
 	\t *input file (default: out.dot). E.g., -i INfile.dot\n\
-	\t *output file (default: test_log.txt). E.g., -o OUTfile.dot\n\
+	\t *output file (default: test_log.txt). E.g., -o OUTfile.txt\n\
 	\t *initial ID vertex for BFS (default 0). E.g., -id 9\n\
 	\t *Test BFS (default true). E.g., -noTestBFS\n\
+	\t *Alpha parameter DOBFS (default 12). E.g., -alpha\n\
+	\t *Beta Parameter DOBFS (default 24). E.g., -beta\n\
 	\t *Test Pagerank (default true). E.g., -noTestPagerank\n\
+	\t *Pagerank Damping Factor (default 0.85). E.g., -df 0.9\n\
 	\t *Pagerank Iteration (default 100). E.g., -iter \n";
 
 	std::cout << help;

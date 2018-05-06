@@ -33,7 +33,7 @@ void fixed_pagerank(Graph &g, double alpha, int maxiteration){
 			g[i].fixed_value=0;
 		}
 
-		#pragma omp parallel for 
+		#pragma omp parallel for private(update)
 		for (size_t i = 0; i < vertexNum; ++i){
 			if(outdegree[i]>0){
 				update = (fixed_alpha*memory[i])/outdegree[i];
