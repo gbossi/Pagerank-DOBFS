@@ -73,8 +73,8 @@ Additional Arguments:
 		 *Parallel BFS (default true). E.g., -noParallelBFS
 		 *Pagerank (default true). E.g., -noPagerank
 		 *Fixed Pagerank (default true). E.g., -noFixedPagerank
-		 *Alpha parameter DOBFS (default 12). E.g., -alpha
-		 *Beta Parameter DOBFS (default 24). E.g., -beta
+		 *Alpha parameter DOBFS (default 12). E.g., -alpha 6
+		 *Beta Parameter DOBFS (default 24). E.g., -beta 12
 		 *Pagerank Damping Factor (default 0.85). E.g., -df 0.9
 		 *Pagerank Iteration (default 100). E.g., -iter 
 ```
@@ -86,11 +86,14 @@ To output the available additional arguments
 ```
 
 ```
-Additional Arguments:
+Additional Argument:
 		 *input file (default: out.dot). E.g., -i INfile.dot
-		 *output file (default: test_log.txt). E.g., -o testPagerank.txt
+		 *output file (default: test_log.txt). E.g., -o OUTfile.txt
 		 *initial ID vertex for BFS (default 0). E.g., -id 9
 		 *Test BFS (default true). E.g., -noTestBFS
+		 *Alpha parameter DOBFS (default 12). E.g., -alpha 6
+		 *Beta Parameter DOBFS (default 24). E.g., -beta 12
 		 *Test Pagerank (default true). E.g., -noTestPagerank
+		 *Pagerank Damping Factor (default 0.85). E.g., -df 0.9
 		 *Pagerank Iteration (default 100). E.g., -iter 
 ```
