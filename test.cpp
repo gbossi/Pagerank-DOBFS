@@ -34,13 +34,13 @@ int main(int argc, char* argv[]){
 			else if( !strcmp(argv[iii], "-o") && iii != argc-1)
 				filename_OUT =  std::string(argv[iii+1]) ;
 			else if( !strcmp(argv[iii], "-id") && iii != argc-1)
-				initialVertexID = std::stod( std::string(argv[iii+1]));
+				initialVertexID = std::stoull( std::string(argv[iii+1]));
+			else if( !strcmp(argv[iii], "-alpha") && iii != argc-1 )
+				alpha = std::stoull( std::string(argv[iii+1]) );
+			else if( !strcmp(argv[iii], "-beta") && iii != argc-1)
+				beta = std::stoull( std::string(argv[iii+1]) );
 			else if( !strcmp(argv[iii], "-noTestBFS"))
 				testBFS = false;
-			else if( !strcmp(argv[iii], "-alpha") && iii != argc-1 )
-				alpha = std::stod( std::string(argv[iii+1]) );
-			else if( !strcmp(argv[iii], "-beta") && iii != argc-1)
-				beta = std::stod( std::string(argv[iii+1]) );
 			else if( !strcmp(argv[iii], "-noTestPagerank"))
 				testPagerank = false;
 			else if( !strcmp(argv[iii], "-df") && iii != argc-1)
@@ -54,9 +54,9 @@ int main(int argc, char* argv[]){
 		}
 
 
-   	std::cout << "Using the standard file "<< RMAT_FILE << std::endl;
-   	std::cout << "Using as starting ID " << BFS_START_ID << std::endl;
-  	std::cout << "Getting the graph from " << filename_IN << std::endl;
+   	std::cout << "Using the input file "<< filename_IN << std::endl;
+   	std::cout << "Using as starting ID " << initialVertexID << std::endl;
+  	std::cout << "Output the graph in " << filename_OUT << std::endl;
 	buildGraph(g, filename_IN);
 	std::cout << "Setting up a Translator between vertex Index and ID" << std::endl;
 	Translator t(g);
